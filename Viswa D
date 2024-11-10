@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_STUDENTS 100
+
+// Structure to hold student details
+struct Student {
+    int seatNumber;
+    char regNumber[15];
+    char name[50];
+};
+
+// Function to display student details
+void displayStudents(struct Student students[], int count) {
+    printf("\n%-10s %-20s %-30s\n", "Seat No", "Reg No", "Name");
+    printf("-------------------------------------------------------------\n");
+    for (int i = 0; i < count; i++) {
+        printf("%-10d %-20s %-30s\n", students[i].seatNumber, students[i].regNumber, students[i].name);
+    }
+}
+
+// Function to allocate seats and input details
+void allocateSeats(struct Student students[], int *count) {
+    printf("Enter number of students: ");
+    scanf("%d", count);
+
+    for (int i = 0; i < *count; i++) {
+        printf("\nEnter details for student %d\n", i + 1);
+        
+        printf("Seat Number: ");
+        scanf("%d", &students[i].seatNumber);
+        
+        printf("Registration Number: ");
+        scanf("%s", students[i].regNumber);
+
+        printf("Name: ");
+        scanf(" %[^\n]s", students[i].name);  // Read full name with spaces
+    }
+}
+
+int main() {
+    struct Student students[MAX_STUDENTS];
+    int studentCount = 0;
+
+    printf("Exam Proctor Program\n");
+    printf("=====================\n");
+
+    // Allocate seats and get student details
+    allocateSeats(students, &studentCount);
+
+    // Display all allocated seats
+    displayStudents(students, studentCount);
+
+    return 0;
+}
